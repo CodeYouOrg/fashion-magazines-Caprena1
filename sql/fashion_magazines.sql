@@ -15,4 +15,7 @@ WHERE
     AND orders.order_status = 'unpaid'
 GROUP BY 
     customers.customer_name
+ORDER BY
+	customers.customer_name ASC;
+	
 	
