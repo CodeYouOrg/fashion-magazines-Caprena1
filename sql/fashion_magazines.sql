@@ -1,21 +1,19 @@
 SELECT 
     customers.customer_name AS "Customer", '$' || PRINTF('%.2f', SUM(subscriptions.price_per_month * subscriptions.subscription_length)) AS 'Total Amount Due'
 FROM 
-    customers
-JOIN 
-    subscriptions 
-ON 
-    customers.customer_id = subscriptions.subscription_id
-LEFT JOIN 
     orders
+INNER JOIN 
+    customers
 ON 
-    subscriptions.subscription_id = orders.subscription_id
+    customers.customer_id = orders.customer_id
+INNER JOIN 
+    subscriptions
+ON 
+    orders.subscription_id = subscriptions.subscription_id
 WHERE 
-    subscriptions.description = 'Fashion Magazine'
-    AND orders.order_status = 'unpaid'
+	orders.order_status = 'unpaid' AND subscriptions.description = 'Fashion Magazine'
 GROUP BY 
-    customers.customer_name
-ORDER BY
-	customers.customer_name ASC;
-	
+    customers.customer_name;
+
+
 	
